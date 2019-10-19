@@ -1,0 +1,119 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define PB(x) push_back(x)
+#define MP(x,y) make_pair(x,y)
+#define F first
+#define int long long int
+#define S second
+#define atulpandey ios_base::sync_with_stdio(false),cin.tie(NULL);
+
+int all9s(string s)
+{
+    for(auto x : s)
+        if(x!='9') return 0;
+    return 1;
+}
+int32_t main()
+{   
+    atulpandey;
+    int t; cin>>t;
+    while(t--)
+    {
+        string s; cin>>s;
+        if(all9s(s))
+        {
+            cout<<"1";
+            for(int i=0;i<s.length()-1;i++)
+                cout<<"0";
+            cout<<"1"<<endl;
+            continue;
+        }
+        int n = s.length();
+        string ans = s;
+        int i=0;
+        int j=n-1;
+        int ok = 1;
+        while(i<j)
+        { if(ans[j] < ans[i])
+            {
+                //ok = 0;
+            }
+            ans[j] = ans[i];
+            i++;
+            j--;
+        }
+        if(ans>s)
+        {
+            cout<<ans<<endl;
+            continue;
+        }
+        if(ok)
+        {
+            if(n&1)
+            {
+                int i = n/2;
+                int carry = 0;
+
+                if(ans[i]=='9')
+                {
+                    ans[i]='0';
+                    carry=1;
+                }
+                else
+                {
+                    ans[i] = (ans[i]-'0'+1)+'0';
+                    goto A;
+                }
+
+                int j = i;
+                i--;
+                j++;
+                carry = 0;
+                while(i>=0 and j<n)
+                {
+                    if(ans[i]=='9')
+                    {
+                        ans[i]=ans[j]='0';
+                        carry = 1;
+                    }
+                    else
+                    {
+                        ans[i] = ans[j] = (ans[i]-'0'+1) + '0';
+                        carry = 0;
+                        break;
+                    }
+                    i--;
+                    j++;
+                }
+            }
+            else
+            {
+                int i = n/2-1;
+                int j = n/2;
+
+                while(i>=0 and j<n)
+                {
+                    if(ans[i]=='9')
+                    {
+                        ans[i]=ans[j]='0';
+                    }
+                    else
+                    {
+                        ans[i] = ans[j] = (ans[i]-'0'+1) + '0';
+                        break;
+                    }
+                    i--;
+                    j++;   
+                }
+            }
+                A:;
+                cout<<ans<<endl;
+        }  
+        else
+        {
+            cout<<ans<<endl;
+        }  
+    }
+        
+    return 0;
+} 
